@@ -12,9 +12,10 @@ from flask import Flask
 3. import os allows your Python (or Flask) program to do things that normally require using your computer's
     file system or environment.
 
-
+remember the thing: THE APPLICATION FACTORY PATTERN
 
 """
+# .\venv\Scripts\Activate
 
 def create_app(test_config=None):
     app=Flask(__name__,instance_relative_config=True)
