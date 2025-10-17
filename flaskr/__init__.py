@@ -19,6 +19,8 @@ from flask import Flask
 def create_app(test_config=None):
     app=Flask(__name__,instance_relative_config=True)
     app.config.from_mapping(
+        SECRET_KEY='dev',
+        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
 
     )
 
@@ -31,10 +33,9 @@ def create_app(test_config=None):
     
      #This small block of code is a safety step in many Flask apps — especially when you use instance_relative_config=True.
 
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
+    
+    os.makedirs(app.instance_path,exist_ok=True)
+    
 
     @app.route('/login')
     def login():
