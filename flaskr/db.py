@@ -17,9 +17,25 @@ Setting .row_factory = sqlite3.Row makes rows act like dict-like objects, so you
 
 3. In Flask, g (short for “global”) is a special object used to store data during a single request.
 
+4. sqlite3.Row is a special class built into Python's sqlite3 module that makes rows act 
+like dictionaries, i.e., you can access values by column name.
+
 """
 
 def get_db():
     if 'db' not in g:
-        g.db=sqlite3.connect(current_app.config['DATABASE'],detect_types=sqlite3.PARSE_COLNAMES)
+        g.db=sqlite3.connect(current_app.config['DATABASE'],detect_types=sqlite3.PARSE_DECLTYPES)
         g.db.row_factory=sqlite3.Row
+    return g.db
+
+def close_db(e=None):
+    # if 'db' in g:
+    db=g.pop('db',None)
+
+    if db is not None:
+        db.close()
+
+
+
+
+
