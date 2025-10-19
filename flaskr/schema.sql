@@ -1,4 +1,7 @@
-DROP TABLE IF EXISTS user;
+-- DROP TABLE IF EXISTS user; is a safety command in SQL, this wont provide error if the table doesnt exists.
+--but if u dont use if exists condition, then it will raise an errror
+
+DROP TABLE IF EXISTS user; 
 DROP TABLE IF EXISTS post;
 
 CREATE TABLE user (

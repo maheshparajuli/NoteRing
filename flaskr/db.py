@@ -36,6 +36,9 @@ def close_db(e=None):
         db.close()
 
 
+# The executescript() method specifically requires a string, not a file object. So you can't skip f.read().
+# sqlite3.register_converter(typename, callable)
+
 
 
 
