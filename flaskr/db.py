@@ -58,10 +58,23 @@ sqlite3.register_converter(
 )
 
 def init_app(app):
-    app.teardown_appcontext(close_db)
+    """  
+    It is like saying need to run it but when the time comes( the right time).
+    Passing memory reference.
+    Flask stores this reference and calls it later.
+    """
+    app.teardown_appcontext(close_db)  
+
     app.cli.add_command(init_db_command)
 
 
 
 
+""" 
+
+app.teardown_appcontext() tells Flask to call that function when cleaning up after returning the response.
+
+app.cli.add_command() adds a new command that can be called with the flask command.
+
+"""
 
