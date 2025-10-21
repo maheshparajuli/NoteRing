@@ -22,3 +22,9 @@ It helps when your application grows bigger — instead of putting all routes in
 """
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
+
+@bp.route('/register',methods=('GET',"POST"))
+def register():
+    if request.method == 'POST':
+        usrname=request.form['username']
+        
