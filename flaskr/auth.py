@@ -73,7 +73,7 @@ def login():
             error = 'Incorrect password.'
 
         if error is None:
-            session.clear()
+            session.clear() # needed to clear any previous data of other user
             session['user_id'] = user['id']
             return redirect(url_for('index'))
 
@@ -93,6 +93,9 @@ def load_logged_in_user():
         ).fetchone()
 
 
+
+# To log out, you need to remove the user id from the session. Then load_logged_in_user won’t load a user on subsequent requests.
+
 @bp.route('/logout')
 def logout():
     session.clear()
@@ -100,7 +103,7 @@ def logout():
 
 
 def login_required(view):
-    @functools.wraps(view)
+    @functools.wraps(view) # It is a helper decorator from Python’s built-in functools module.
     def wrapped_view(**kwargs):
         if g.user is None:
             return redirect(url_for('auth.login'))
