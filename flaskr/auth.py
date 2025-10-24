@@ -13,14 +13,13 @@ from argon2.exceptions import HashingError
 
 """   
 
-A Blueprint in Flask is a way to organize your app into reusable and modular components.
-It helps when your application grows bigger — instead of putting all routes in app.py, you create sections (blueprints).
+1. A Blueprint in Flask is a way to organize your app into reusable and modular components.
+   It helps when your application grows bigger — instead of putting all routes in app.py, you create sections (blueprints).
 
+2. The name associated with a view is also called the endpoint, and by default it's the same as the name of the view function.
 
-
-
-
-
+3. When using a blueprint, the name of the blueprint is prepended to the name of the function, so the endpoint for the login 
+   function you wrote above is 'auth.login' because you added it to the 'auth' blueprint.
 
 """
 
@@ -103,11 +102,37 @@ def logout():
 
 
 def login_required(view):
+    """
+    this checks if user is logged in or not before every view 
+    and @login_required is used to decorate every view 
+    function(at the end every view is a function that returns sth)
+
+    """
     @functools.wraps(view) # It is a helper decorator from Python’s built-in functools module.
-    def wrapped_view(**kwargs):
+    def wrapper_view(**kwargs):
         if g.user is None:
             return redirect(url_for('auth.login'))
 
         return view(**kwargs)
 
     return wrapped_view
+
+""" 
+    This simple example perfectly explains the use of decorators(for revision)
+    
+    def decorator_name(func):
+    def wrapper(*args, **kwargs):
+        print("Before execution")
+        result = func(*args, **kwargs)
+        print("After execution")
+        return result
+    return wrapper
+
+    @decorator_name
+    def add(a, b):
+    return a + b
+
+    print(add(5, 3))
+
+
+"""
