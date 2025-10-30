@@ -19,5 +19,8 @@ remember the thing: THE APPLICATION FACTORY PATTERN
 
 
 def create_app(testconfig=None):
+    app=Flask(__name__)
+
+    if 
 
 
