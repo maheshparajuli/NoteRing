@@ -17,38 +17,7 @@ remember the thing: THE APPLICATION FACTORY PATTERN
 """
 # .\venv\Scripts\Activate
 
-def create_app(test_config=None):
-    app=Flask(__name__,instance_relative_config=True)
-    app.config.from_mapping(
-        SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
 
-    )
-
-    if test_config is None:
-        # This is often used in create_app() factories to allow the app to run even if a developer hasn’t created a local config file yet.
-    
-        app.config.from_pyfile('config.py',silent=True) # This is often used in create_app() factories to allow the app to run even if a developer hasn’t created a local config file yet.
-    app.config.from_mapping(test_config)
-    
-    
-     #This small block of code is a safety step in many Flask apps — especially when you use instance_relative_config=True.
-
-    
-    os.makedirs(app.instance_path,exist_ok=True)
-
-    from . import db
-    db.init_app(app)
-
-    from . import auth
-    app.register_blueprint(auth.bp)
-
-    return app
-    
-
-    @app.route('/login')
-    def login():
-        return 'Banaudai xu bro'
-    return app
+def create_app(testconfig=None):
 
 
