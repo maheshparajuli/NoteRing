@@ -1,6 +1,6 @@
 
 import os
-from flask import Flask
+from flask import Flask,render_template
 
 """     
 1. app.config is dictionary like object that stores configuration settings for your application
@@ -18,7 +18,7 @@ remember the thing: THE APPLICATION FACTORY PATTERN
 # .\venv\Scripts\Activate
 
 
-def create_app(test_config=None):
+def create_app(test_config=None): #The function can optionally take a test_config dictionary mainly used for app test
     app=Flask(__name__)
 
     if test_config is None:
@@ -27,4 +27,9 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
+    @app.route('/home')
+    def home():
+        return "landing page rakhxu hola"
+        
+    return app
 
