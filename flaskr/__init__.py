@@ -18,9 +18,13 @@ remember the thing: THE APPLICATION FACTORY PATTERN
 # .\venv\Scripts\Activate
 
 
-def create_app(testconfig=None):
+def create_app(test_config=None):
     app=Flask(__name__)
 
-    if 
+    if test_config is None:
+        app.config.from_pyfile("config.py",silent=True)
+
+    else:
+        app.config.from_mapping(test_config)
 
 
