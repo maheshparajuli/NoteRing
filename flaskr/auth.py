@@ -25,12 +25,12 @@ from argon2.exceptions import HashingError
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
-@bp.route('/register',methods=('GET',"POST"))
+@bp.route('/signup',methods=('GET',"POST"))
 def register():
     if request.method == 'POST':
         username=request.form['username']
         password=request.form['password']
-        db=get_db()
+        # db=get_db()
         error=None
 
         if not username:
