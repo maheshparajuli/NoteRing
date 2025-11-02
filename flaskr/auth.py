@@ -9,6 +9,7 @@ from flaskr.db import get_db
 
 from argon2 import PasswordHasher
 from argon2.exceptions import HashingError
+import re
 
 
 """   
@@ -34,11 +35,13 @@ def register():
         error={}
 
         if not username:
-            error='username is required'
+            errors[username_error]='username is required'
         elif not password:
-            error='password is required'
+            errors[password_error]='password is required'
         elif len(password)<8:
-            error='password must be at least 8 characters'
+            errors[len_error]='password must be at least 8 characters'
+        elif re.search(r'[A-Z]', password) and re.search(r'[^A-Za-z0-9]', password):
+            errors[strong_error]='Use at least one uppercase and one special charater'
 
         if error is None:
             try:
