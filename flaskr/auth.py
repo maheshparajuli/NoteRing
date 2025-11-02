@@ -31,7 +31,7 @@ def register():
         username=request.form['username']
         password=request.form['password']
         # db=get_db()
-        error=None
+        error={}
 
         if not username:
             error='username is required'
