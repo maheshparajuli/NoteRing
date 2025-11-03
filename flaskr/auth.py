@@ -56,7 +56,7 @@ def register():
         flash(error)
     return render_template('auth/register.html')
 
-
+"""
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
@@ -75,13 +75,16 @@ def login():
             error = 'Incorrect password.'
 
         if error is None:
-            session.clear() # needed to clear any previous data of other user
+            session.clear()
             session['user_id'] = user['id']
             return redirect(url_for('index'))
 
         flash(error)
 
     return render_template('auth/login.html')
+
+    
+"""
 
 
 @bp.before_app_request
