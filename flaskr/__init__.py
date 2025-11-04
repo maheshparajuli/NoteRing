@@ -1,5 +1,6 @@
 
 import os
+from flask_mysqldb import MySQL
 from flask import Flask,render_template
 
 """     
@@ -34,6 +35,7 @@ def create_app(test_config=None): #The function can optionally take a test_confi
     app.config['MYSQL_USER'] = 'root'
     app.config['MYSQL_PASSWORD'] = '***'
     app.config['MYSQL_DB'] = '***'
+    mysql=MySQL()
 
     @app.route('/home')
     def home():

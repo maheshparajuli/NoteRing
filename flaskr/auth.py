@@ -10,6 +10,8 @@ from flaskr.db import get_db
 from argon2 import PasswordHasher
 from argon2.exceptions import HashingError
 import re
+from MySQLdb import IntegrityError
+
 
 
 """   
@@ -31,8 +33,8 @@ def register():
     if request.method == 'POST':
         username=request.form['username']
         password=request.form['password']
-        # db=get_db()
-        error={}
+        
+        errors={}
 
         if not username:
             errors[username_error]='username is required'
@@ -45,16 +47,22 @@ def register():
 
         if error is None:
             try:
-                db.execute(
-                    "INSERT INTO user (username,password) VALUES(?,?)",(username,ph.hash(password)),
+                cursor=mysql.connection.cursor()
+               
+                cursor.execute(
+                    "INSERT INTO user (username,password) VALUES(%s,%s)",(username,ph.hash(password)),
                 )
-                db.commit()
-            except db.IntegrityError:
+                mysql.connection.commit()
+                cursor.close()
+            except IntegrityError:
                 errors[db_error]=f"User {username} is already registered."
             else:
                 return redirect(url_for("auth.login"))
-        flash(error)
-    return render_template('auth/register.html')
+        else:
+            for msg in errors.values():
+                flash(msg)
+    else:            
+        return render_template('auth/register.html')
 
 """
 
