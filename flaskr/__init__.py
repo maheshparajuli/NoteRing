@@ -27,6 +27,14 @@ def create_app(test_config=None): #The function can optionally take a test_confi
     else:
         app.config.from_mapping(test_config)
 
+
+    app.config['SECRET_KEY'] = 'dev'
+
+    app.config['MYSQL_HOST'] = 'localhost'
+    app.config['MYSQL_USER'] = 'root'
+    app.config['MYSQL_PASSWORD'] = '***'
+    app.config['MYSQL_DB'] = '***'
+
     @app.route('/home')
     def home():
         return "landing page rakhxu hola"
